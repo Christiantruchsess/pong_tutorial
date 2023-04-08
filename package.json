@@ -1,11 +1,14 @@
 {
   "name": "pong_tutorial",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "hello": "echo this is one of my first tests!"
+    "hello": "echo this is one of my first tests!",
+    "ls": "ls",
+    "start": "node server.js"
   },
   "author": "",
   "license": "MIT",
