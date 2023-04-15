@@ -1,37 +1,58 @@
-
-// Define Classes
-
-class Square {
-    constructor(inPosition) {
-        this.position = inPosition
+class Ball {
+    constructor(startX, startY, startColor) {
+        this.xPosition = startX
+        this.yPosition = startY
+        this.color = startColor
+        this.xDirection = 1
     }
-    draw(ctx) {
-        ctx.fillStyle = "rgb(200, 0, 0)";
-        ctx.fillRect(this.position, this.position, 50, 50);
+
+    draw (ctx) {
+        ctx.fillStyle = this.color
+        ctx.beginPath()
+        ctx.arc(this.xPosition,this.yPosition,15,0,2*Math.PI)
+        ctx.fill() 
+    }
+
+    update () {
+        if(this.xPosition > canvas.clientWidth) {
+            this.xDirection = -1
+        }
+        if(this.xPosition < 0) {
+            this.xDirection = 1
+        }
+        
+        this.xPosition += this.xDirection
+
+    
+
     }
 }
 
 // Define Global Variables 
-var firstSquare = new Square(10)
-var secondSquare = new Square(100)
-
-var canvas
-var ctx
+var canvas = document.getElementById("canvas")
+var ctx = canvas.getContext("2d")
+var ball1 = new Ball(300, 300, "blue")
+var ball2 = new Ball(200,200, "green")
+var ball3 = new Ball(100,100,'purple')
 
 // Define Functions
 
 function draw() {
-        ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight)
+    ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight)
 
-        firstSquare.draw(ctx)
-        secondSquare.draw(ctx)
-
-        ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-        ctx.fillRect(30, 30, 50, 50);
+    //draw a ball
+    ball1.draw(ctx)
+    ball2.draw(ctx)
+    ball3.draw(ctx)
+    
 }
+
 function update() {
-    firstSquare.position += 1
-    secondSquare.position -= 1
+    //move the ball
+    ball1.update()
+    ball2.update()
+    ball3.update()
+    //bounce the ball
 }
 
 function animate() {
@@ -40,16 +61,10 @@ function animate() {
     requestAnimationFrame(animate)
 }
 
-function mickey() {
-    console.log("dom content loaded!")
-    
+function onContentLoaded() {   
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     animate()
 }
 
-document.addEventListener("DOMContentLoaded", mickey)
-
-// Dom Content loads -> "listener" _heard_ the Dom content loading... so he calls mickey,
-// mickey then gives value to global variable canvas, defines context of canvas, calls animate function
-// animate calls update
+document.addEventListener("DOMContentLoaded", onContentLoaded)
