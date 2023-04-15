@@ -4,6 +4,7 @@ class Ball {
         this.yPosition = startY
         this.color = startColor
         this.xDirection = 1
+        this.yDirection = 1
     }
 
     draw (ctx) {
@@ -20,10 +21,16 @@ class Ball {
         if(this.xPosition < 0) {
             this.xDirection = 1
         }
-        
-        this.xPosition += this.xDirection
+        if(this.yPosition > canvas.clientHeight) {
+            this.yDirection = -1 
+        }
+        if(this.yPosition < 0) {
+            this.yDirection = 1
+        }
 
-    
+        this.xPosition += this.xDirection
+        this.yPosition += this.yDirection
+        
 
     }
 }
