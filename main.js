@@ -29,15 +29,13 @@ class Ball {
         }
         if(this.yPosition + this.radius > canvas.clientHeight) {
             this.yDirection = -1*this.speed
-            this.speed += 1
         }
         if(this.yPosition - this.radius < 0) {
             this.yDirection = 1*this.speed
-            this.speed += 1
         }
         // caps speed
-        if(this.speed > 15) {
-            this.speed = 15
+        if(this.speed > 10) {
+            this.speed = 10
         }
 
         this.xPosition += this.xDirection
