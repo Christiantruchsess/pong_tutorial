@@ -36,7 +36,6 @@ class Ball {
 
 // Define Global Variables 
 var canvas = document.getElementById("canvas")
-//var ctx = canvas.getContext("2d")
 var ball1 = new Ball(300,300,15,"blue")
 var ball2 = new Ball(200,200,15,"green")
 var ball3 = new Ball(100,100,15,"purple")
