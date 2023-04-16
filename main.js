@@ -5,8 +5,10 @@ class Ball {
         this.yPosition = startY
         this.radius = startRadius
         this.color = startColor
-        this.xSpeed = 1
-        this.ySpeed = 1
+        this.xDirection = 1
+        this.yDirection = 1
+        this.speed = 1
+
     }
 
     draw (ctx) {
@@ -18,20 +20,32 @@ class Ball {
 
     update () {
         if(this.xPosition + this.radius > canvas.clientWidth) {
-            this.xSpeed = -1
+            this.xDirection = -1*this.speed
+            this.speed += 1
         }
         if(this.xPosition - this.radius < 0) {
-            this.xSpeed = 1
+            this.xDirection = 1*this.speed
+            this.speed += 1
         }
         if(this.yPosition + this.radius > canvas.clientHeight) {
-            this.ySpeed = -1 
+            this.yDirection = -1*this.speed
+            this.speed += 1
         }
         if(this.yPosition - this.radius < 0) {
-            this.ySpeed = 1
+            this.yDirection = 1*this.speed
+            this.speed += 1
         }
-        this.xPosition += this.xSpeed
-        this.yPosition += this.ySpeed
+        // caps speed
+        if(this.speed > 15) {
+            this.speed = 15
+        }
+
+        this.xPosition += this.xDirection
+        this.yPosition += this.yDirection 
     }
+}
+
+class Paddle {
 }
 
 // Define Global Variables 
@@ -51,22 +65,25 @@ function draw() {
 }
 
 function update() {
-    // 
+    // calls ball's "update" function; moves ball by updating ball's position
     ball1.update()
     ball2.update()
     ball3.update()
 }
 
 function animate() {
-    update()
+    // calls "draw" and "update" functions continuously as requestAnimationFrame runs
     draw()
+    update()
     requestAnimationFrame(animate)
 }
 
-function onContentLoaded() {   
+function onContentLoaded() {
+    // defines "canvas" and its "context"; initializes program by calling "animate" function
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     animate()
 }
 
+// "turns on the ignition" by waiting for HTML Content to load, at which point "onContentLoaded" function is run
 document.addEventListener("DOMContentLoaded", onContentLoaded)
