@@ -16,16 +16,16 @@ class Ball {
     }
 
     update () {
-        if(this.xPosition > canvas.clientWidth) {
+        if(this.xPosition + this.radius > canvas.clientWidth) {
             this.xDirection = -1
         }
-        if(this.xPosition < 0) {
+        if(this.xPosition - this.radius < 0) {
             this.xDirection = 1
         }
-        if(this.yPosition > canvas.clientHeight) {
+        if(this.yPosition + this.radius > canvas.clientHeight) {
             this.yDirection = -1 
         }
-        if(this.yPosition < 0) {
+        if(this.yPosition - this.radius < 0) {
             this.yDirection = 1
         }
 
