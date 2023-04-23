@@ -1,4 +1,4 @@
-import  { mousePosition } from "./mousePosition.js"
+import  { mousePosition } from "./mouseposition.js"
 import { checkBallCollisions } from "./main.js"
 
 export default class Paddle {

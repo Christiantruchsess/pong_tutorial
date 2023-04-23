@@ -1,11 +1,9 @@
-import { mousePosition } from "./mousePosition.js"
+import { mousePosition } from "./mouseposition.js"
 import Ball from "./ball.js"
 import Paddle from "./paddle.js"
 
 // Define Global Variables 
 var player1Paddle = new Paddle(200,"black")
-
-
 var canvas 
 var ctx
 var entities = []
