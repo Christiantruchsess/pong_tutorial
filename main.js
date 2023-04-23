@@ -44,27 +44,50 @@ class Ball {
 }
 
 class Paddle {
+    constructor(startYPosition,inColor) {
+        this.color = inColor
+        this.yPosition = startYPosition
+        this.height = 100
+    }
+
+    draw (ctx) {
+        ctx.fillStyle = this.color
+        ctx.beginPath()
+        ctx.rect(10, this.yPosition - this.height/2 , 20, this.height)
+        ctx.fill() 
+    }
+
+    update () {
+        this.yPosition = mousePosition.y
+    }
 }
 
 // Define Global Variables 
 var ball1 = new Ball(300,300,15,"blue")
 var ball2 = new Ball(200,200,15,"green")
 var ball3 = new Ball(100,100,15,"purple")
-
+var player1Paddle = new Paddle(200,"black")
 var mousePosition = {
     x: 0,
     y: 0
 }
 
 var entities = []
-entities.push(ball1)
-entities.push(ball2)
-entities.push(ball3)
+// entities.push(ball1)
+// entities.push(ball2)
+// entities.push(ball3)
+entities.push(player1Paddle)
 
 // Define Functions
 
 function draw() {
     ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight)
+
+    ctx.fillStyle = "gray"
+    ctx.beginPath()
+    ctx.rect(0, 0, canvas.clientWidth,canvas.clientHeight)
+    ctx.fill()
+
     entities.forEach(eachEntityDraw)
 
 }
@@ -99,13 +122,17 @@ function onContentLoaded() {
 
     window.addEventListener("keydown", onKeyDown)
 
-
     ctx = canvas.getContext("2d");
     animate()
 }
 
 function onClick(event) {
     console.log("clicked!", event)
+
+    var availableColors = ["blue", "green", "purple", "red", "yellow","orange"]
+    var randomIndex = Math.floor(availableColors.length * Math.random())
+
+    entities.push(new Ball(40,mousePosition.y,15,availableColors[randomIndex]))
 }
 
 function onMousemove(event) {
