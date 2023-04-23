@@ -64,28 +64,10 @@ entities.push(ball3)
 // Define Functions
 
 function draw() {
-    // draws "Canvas"
     ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight)
-    // draws ball instances
-    // ball1.draw(ctx)
-    // ball2.draw(ctx)
-    // ball3.draw(ctx)
-
     entities.forEach(eachEntityDraw)
 
-    // for(var index = 0; index < entities.length; index += 1) {
-    //     eachEntityDraw(entities[index])
-    // }
-
-    // var index = 0
-    // while(index < entities.length) {
-    //     eachEntityDraw(entities[index])
-    //     index += 1
-    // }
 }
-
-
-
 
 function eachEntityDraw(entity) {
     entity.draw(ctx)
@@ -96,14 +78,7 @@ function eachEntityUpdate(entity) {
 }
 
 function update() {
-    // calls ball's "update" function; moves ball by updating ball's position
-    //ball1.update()
-    //ball2.update()
-    //ball3.update()
-    // ball3.xPosition = mousePosition.x
-    // ball3.yPosition = mousePosition.y
     entities.forEach(eachEntityUpdate)
-
 }
 
 function animate() {
