@@ -17,28 +17,23 @@ function draw() {
     ctx.beginPath()
     ctx.rect(0, 0, canvas.clientWidth,canvas.clientHeight)
     ctx.fill()
-    entities.forEach(eachEntityDraw)
-}
-
-function eachEntityDraw(entity) {
-    entity.draw(ctx)
-}
-
-function eachEntityUpdate(entity) {
-    entity.update()
+    entities.forEach((entity) => {
+        entity.draw(ctx)
+    })
 }
 
 function update() {
-    entities.forEach(eachEntityUpdate)
+    entities.forEach((entity) => {
+        entity.update()
+    })
+    checkPaddleCollisions(player1Paddle)
     removeDeadEntities()
 }
 
-export function checkBallCollisions(paddle) {
-    console.log("does anybody hit me? ", paddle)
-
+function checkPaddleCollisions(paddle) {
     //filter out the paddle from the entities list (don't want to collide with myself!)
     // var notPaddleEntities = entities.filter((entity) => entity != paddle)
-
+    
     var notPaddleEntities = []
     for(var index = entities.length - 1; index >= 0; index -= 1) {
         var entity = entities[index]
@@ -47,6 +42,9 @@ export function checkBallCollisions(paddle) {
         }
     }
     
+    notPaddleEntities.forEach((ball) => {
+        ball.collisionCheck(paddle)
+    })
     //loop over all of the remaining entities
     //if the entity is within the paddle
     //call entity.collide(paddle)

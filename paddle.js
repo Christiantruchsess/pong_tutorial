@@ -1,10 +1,11 @@
 import  { mousePosition } from "./mouseposition.js"
-import { checkBallCollisions } from "./main.js"
 
 export default class Paddle {
     constructor(startYPosition,inColor) {
         this.color = inColor
+        this.xPosition = 10
         this.yPosition = startYPosition
+        this.width = 20
         this.height = 100
         this.alive = true 
     }
@@ -12,12 +13,16 @@ export default class Paddle {
     draw (ctx) {
         ctx.fillStyle = this.color
         ctx.beginPath()
-        ctx.rect(10, this.yPosition - this.height/2 , 20, this.height)
-        ctx.fill() 
+        ctx.rect(this.xPosition, this.yPosition , this.width, this.height)
+        ctx.fill()
+
+        ctx.fillStyle = "red"
+        ctx.beginPath()
+        ctx.arc(this.xPosition, this.yPosition, 4, 0, 2 * Math.PI)
+        ctx.fill()
     }
 
     update () {
-        this.yPosition = mousePosition.y
-        checkBallCollisions(this)
+        this.yPosition = mousePosition.y - this.height/2
     }
 }

@@ -14,7 +14,12 @@ export default class Ball {
         ctx.fillStyle = this.color
         ctx.beginPath()
         ctx.arc(this.xPosition,this.yPosition,this.radius,0,2*Math.PI)
-        ctx.fill() 
+        ctx.fill()
+
+        ctx.fillStyle = "red"
+        ctx.beginPath()
+        ctx.arc(this.xPosition, this.yPosition, 4, 0, 2 * Math.PI)
+        ctx.fill()
     }
 
     update () {
@@ -39,5 +44,32 @@ export default class Ball {
 
         this.xPosition += this.xDirection
         this.yPosition += this.yDirection 
+    }
+
+    collisionCheck (paddle) {
+        var paddleTopLeftCorner = {x: paddle.xPosition, y: paddle.yPosition}
+        var paddleTopRightCorner = {x: paddle.xPosition + paddle.width, y: paddle.yPosition}
+        var paddleBottomLeftCorner = {x: paddle.xPosition, y: paddle.yPosition + paddle.height}
+        var paddleBottomRightCorner = {x: paddle.xPosition + paddle.width, y: paddle.yPosition + paddle.height}
+
+        if(this.xPosition + this.radius > paddle.xPosition && this.xPosition - this.radius < paddle.xPosition + paddle.width) {
+            if(this.yPosition + this.radius > paddle.yPosition && this.yPosition - this.radius < paddle.yPosition + paddle.height) {
+                this.xDirection = 1*this.speed
+            }
+        }
+        //TODO: compare the position of the paddle against this ball
+        //If they intersect, this ball needs to change direction and be moved out of collision range
+
+        //   A__B                 __ 
+        //   |  |                |  |
+        //   |  |   __           | _|_
+        //   |  |  |__|          ||_|_|
+        //   |  |                |  |
+        //   |  |                |  |
+        //   |__|                |__|
+        //   C  D
+
+        
+
     }
 }
