@@ -1,3 +1,5 @@
+import { onBallDeath } from "./main.js"
+
 export default class Ball {
     constructor(startX, startY, startRadius, startColor) {
         this.xPosition = startX
@@ -6,7 +8,7 @@ export default class Ball {
         this.color = startColor
         this.xDirection = 1
         this.yDirection = 1
-        this.speed = 1
+        this.speed = 5
         this.alive = true
     }
 
@@ -29,7 +31,8 @@ export default class Ball {
             //this.alive = false
         }
         if(this.xPosition - this.radius < 0) {
-            this.alive = false
+            onBallDeath(this)
+            // this.alive = false
         }
         if(this.yPosition + this.radius > canvas.clientHeight) {
             this.yDirection = -1*this.speed

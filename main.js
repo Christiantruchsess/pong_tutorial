@@ -9,6 +9,8 @@ var ctx
 var entities = []
 entities.push(player1Paddle)
 
+var ballIsInPlay = false
+
 // Define Functions
 
 function draw() {
@@ -27,7 +29,7 @@ function update() {
         entity.update()
     })
     checkPaddleCollisions(player1Paddle)
-    removeDeadEntities()
+    // removeDeadEntities()
 }
 
 function checkPaddleCollisions(paddle) {
@@ -60,6 +62,60 @@ function removeDeadEntities() {
     }
 }
 
+//                  *
+// [ P, B, B, B, B, B, P, B, B]
+//   x  x  x  x  x  5 /
+//   5
+
+//   [ P, B, B, B, B, P, B, B]
+
+export function onBallDeath(deadBall) {
+    // var ballIndex = 0
+    // for(var index = 0; index < entities.length; index++) {
+    //     var entity = entities[index]
+    //     if(entity == deadBall) {
+    //         ballIndex = index
+    //         break
+    //     }
+    // }
+    var mickey = (x) => x == deadBall
+    var deadBallIndex = entities.myFindIndex(mickey)   
+
+    // pseudo-code -> lambda = (entity) => entity == deadbBall 
+    entities.splice(deadBallIndex, 1)
+
+    ballIsInPlay = false
+}
+
+function compareToDeadball(entity) {
+    return entity == deadBall
+}
+
+// function(entity) {
+//     return entity == deadBall
+// }
+
+Array.prototype.myFindIndex = function(mickey) {
+    var ballIndex = 0
+    for(var index = 0; index < this.length; index++) {
+        var element = this[index]
+        if(mickey(element)) {
+            ballIndex = index
+            break
+        }
+    }
+    return ballIndex
+}
+
+var bananas = function(value) {
+    return value + 1
+}
+
+var mathResult = 3 + 3
+var result = bananas(mathResult)
+
+var result = 7
+
 function animate() {
     // calls "draw" and "update" functions continuously as requestAnimationFrame runs
     draw()
@@ -78,10 +134,14 @@ function onContentLoaded() {
 }
 
 function onClick(event) {
+    if(ballIsInPlay) {
+        return
+    }
     console.log("clicked!", event)
     var availableColors = ["blue", "green", "purple", "red", "yellow","orange"]
     var randomIndex = Math.floor(availableColors.length * Math.random())
     entities.push(new Ball(40,mousePosition.y,15,availableColors[randomIndex]))
+    ballIsInPlay = true
 }
 
 function onMousemove(event) {
